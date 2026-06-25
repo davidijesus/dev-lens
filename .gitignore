@@ -1,0 +1,30 @@
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# IDE and local environment
+.idea/
+.vscode/
+local.properties
+
+# Android and Gradle outputs
+.gradle/
+build/
+*/build/
+captures/
+
+# Kotlin
+*.kotlin_module
+
+# Node and Remotion local outputs
+node_modules/
+remotion/node_modules/
+remotion/.cache/
+remotion/out/
+
+# Local toolchains
+tools/
+
+# Temporary demo artifacts
+demo/final/demo-30fps.mp4
+demo/final/demo.ass
