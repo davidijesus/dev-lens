@@ -1,8 +1,8 @@
 # DevLens
 
-DevLens e um aplicativo Android em Kotlin + Jetpack Compose que ajuda times de desenvolvimento a enxergar a diferenca entre valor efetivo e valor percebido das atividades tecnicas do dia a dia.
+DevLens é um aplicativo Android em Kotlin + Jetpack Compose que ajuda times de desenvolvimento a enxergar a diferença entre valor efetivo e valor percebido das atividades técnicas do dia a dia.
 
-## Demo em Video
+## Demo em Vídeo
 
 <p align="center">
   <video src="demo/final/demo.mp4" controls width="360">
@@ -14,21 +14,21 @@ Arquivo da demo renderizada: [`demo/final/demo.mp4`](demo/final/demo.mp4).
 
 ## Problema Abordado
 
-Em times de software, muito trabalho importante nao aparece claramente para a gestao: refatoracoes, revisoes de codigo, suporte informal, investigacao de bugs, reducao de divida tecnica, melhoria de performance e documentacao. Essas tarefas podem reduzir risco, melhorar confiabilidade e acelerar entregas futuras, mas tendem a ter baixa visibilidade quando nao sao comunicadas em linguagem de negocio.
+Em times de software, muito trabalho importante não aparece claramente para a gestão: refatorações, revisões de código, suporte informal, investigação de bugs, redução de dívida técnica, melhoria de performance e documentação. Essas tarefas podem reduzir risco, melhorar confiabilidade e acelerar entregas futuras, mas tendem a ter baixa visibilidade quando não são comunicadas em linguagem de negócio.
 
-## Publico-Alvo
+## Público-Alvo
 
 - Desenvolvedores de software.
 - Tech leads.
 - Product managers.
 - Engineering managers.
 
-## Proposta de Solucao
+## Proposta de Solução
 
-O DevLens permite registrar atividades diarias, analisar cada registro com IA local, comparar dois scores e gerar recomendacoes praticas:
+O DevLens permite registrar atividades diárias, analisar cada registro com IA local, comparar dois scores e gerar recomendações práticas:
 
-- Valor efetivo: impacto real para produto, empresa, usuario ou equipe.
-- Valor percebido: quanto a atividade tende a ser visivel ou valorizada pela gestao.
+- Valor efetivo: impacto real para produto, empresa, usuário ou equipe.
+- Valor percebido: quanto a atividade tende a ser visível ou valorizada pela gestão.
 
 ## Como a IA Resolve o Problema
 
@@ -36,25 +36,25 @@ Ao salvar uma atividade, uma camada local de IA calcula:
 
 - Score de valor efetivo, de 0 a 100.
 - Score de valor percebido, de 0 a 100.
-- Diferenca entre os scores.
+- Diferença entre os scores.
 - Categoria de desalinhamento.
-- Confianca da classificacao.
-- Explicacao textual.
-- Fatores rastreaveis.
-- Recomendacoes para melhorar alinhamento.
+- Confiança da classificação.
+- Explicação textual.
+- Fatores rastreáveis.
+- Recomendações para melhorar alinhamento.
 
-O app nao usa OpenAI, Gemini, Claude ou qualquer API externa. A inferencia e executada no aparelho por um motor modular chamado `LocalAiEngine`.
+O app não usa OpenAI, Gemini, Claude ou qualquer API externa. A inferência é executada no aparelho por um motor modular chamado `LocalAiEngine`.
 
 ## Arquitetura do Sistema
 
-O projeto segue MVVM com separacao por camadas:
+O projeto segue MVVM com separação por camadas:
 
-- `presentation`: telas Compose, componentes, navegacao e ViewModel.
-- `domain`: modelos, repositorios e casos de uso.
-- `data`: Room, entidades, DAO, mappers e implementacao do repositorio.
-- `ai`: classificador local, gerador de explicacao e motor de recomendacao.
-- `worker`: WorkManager para manutencao periodica dos insights.
-- `docs`: roteiro de apresentacao e documentacao complementar.
+- `presentation`: telas Compose, componentes, navegação e ViewModel.
+- `domain`: modelos, repositórios e casos de uso.
+- `data`: Room, entidades, DAO, mappers e implementação do repositório.
+- `ai`: classificador local, gerador de explicação e motor de recomendação.
+- `worker`: WorkManager para manutenção periódica dos insights.
+- `docs`: roteiro de apresentação e documentação complementar.
 
 ```mermaid
 flowchart TD
@@ -78,53 +78,53 @@ flowchart TD
 - DataStore Preferences.
 - WorkManager.
 - Coroutines e Flow.
-- JUnit para testes unitarios.
+- JUnit para testes unitários.
 - Gradle Kotlin DSL.
 
 ## Fluxo de Uso
 
-1. Usuario passa pelo onboarding.
-2. Usuario registra uma atividade com titulo, descricao, tempo, tipo, tags e visibilidade percebida.
+1. Usuário passa pelo onboarding.
+2. Usuário registra uma atividade com título, descrição, tempo, tipo, tags e visibilidade percebida.
 3. O `LocalAiEngine` classifica a atividade localmente.
-4. O app persiste atividade, scores, explicacao e recomendacoes no Room.
-5. Dashboard, lista, detalhe, insights e relatorio gerencial usam os dados locais.
+4. O app persiste atividade, scores, explicação e recomendações no Room.
+5. Dashboard, lista, detalhe, insights e relatório gerencial usam os dados locais.
 
 ```mermaid
 flowchart LR
     A[Onboarding] --> B[Dashboard]
     B --> C[Cadastrar atividade]
-    C --> D[Classificacao local]
-    D --> E[Persistencia Room]
-    E --> F[Detalhe explicavel]
+    C --> D[Classificação local]
+    D --> E[Persistência Room]
+    E --> F[Detalhe explicável]
     E --> G[Insights]
-    E --> H[Relatorio gerencial]
+    E --> H[Relatório gerencial]
 ```
 
 ## Detalhamento do Modelo de IA
 
-A implementacao atual usa um modelo local hibrido baseado em NLP simples, regras ponderadas e fuzzy scoring. A arquitetura foi desenhada para permitir substituicao futura por ONNX Runtime Mobile ou TensorFlow Lite sem alterar UI ou banco.
+A implementação atual usa um modelo local híbrido baseado em NLP simples, regras ponderadas e fuzzy scoring. A arquitetura foi desenhada para permitir substituição futura por ONNX Runtime Mobile ou TensorFlow Lite sem alterar UI ou banco.
 
 Classes principais:
 
-- `ActivityClassifier`: contrato de classificacao.
-- `LocalAiEngine`: motor local substituivel.
+- `ActivityClassifier`: contrato de classificação.
+- `LocalAiEngine`: motor local substituível.
 - `ExplanationGenerator`: transforma fatores em justificativa natural.
-- `RecommendationEngine`: gera proximas acoes.
-- `AiAnalysis`: saida estruturada da classificacao.
+- `RecommendationEngine`: gera próximas ações.
+- `AiAnalysis`: saída estruturada da classificação.
 
 ## Dados de Entrada
 
 Cada atividade recebe:
 
-- Titulo.
-- Descricao.
+- Título.
+- Descrição.
 - Tempo gasto.
 - Tipo da atividade.
 - Tags.
 - Visibilidade percebida pelo desenvolvedor.
 - Data da atividade.
 
-## Saidas do Modelo
+## Saídas do Modelo
 
 - `effectiveScore`.
 - `perceivedScore`.
@@ -137,25 +137,25 @@ Cada atividade recebe:
 - `recommendations`.
 - `analyzedAt`.
 
-## Estrategia de Classificacao
+## Estratégia de Classificação
 
 O classificador combina:
 
 - Peso base por tipo de atividade.
-- Palavras-chave de impacto: cliente, usuario, receita, SLA, producao, incidente, OKR.
-- Palavras-chave tecnicas: refatoracao, legado, teste, arquitetura, performance, query, cache, seguranca, divida tecnica.
-- Palavras-chave de urgencia: critico, urgente, p0, p1, rollback, hotfix.
-- Palavras-chave de visibilidade: demo, review, release, relatorio, stakeholder, roadmap.
+- Palavras-chave de impacto: cliente, usuário, receita, SLA, produção, incidente, OKR.
+- Palavras-chave técnicas: refatoração, legado, teste, arquitetura, performance, query, cache, segurança, dívida técnica.
+- Palavras-chave de urgência: crítico, urgente, p0, p1, rollback, hotfix.
+- Palavras-chave de visibilidade: demo, review, release, relatório, stakeholder, roadmap.
 - Visibilidade percebida informada pelo desenvolvedor.
 - Tempo gasto.
-- Presenca ou ausencia de tags.
+- Presença ou ausência de tags.
 
 Categorias:
 
-- Alinhado: diferenca pequena entre os scores.
-- Alto valor invisivel: valor efetivo alto e percepcao baixa.
-- Baixo valor superestimado: percepcao alta e valor efetivo menor.
-- Atencao necessaria: diferenca relevante que nao se enquadra nos extremos.
+- Alinhado: diferença pequena entre os scores.
+- Alto valor invisível: valor efetivo alto e percepção baixa.
+- Baixo valor superestimado: percepção alta e valor efetivo menor.
+- Atenção necessária: diferença relevante que não se enquadra nos extremos.
 
 ```mermaid
 flowchart TD
@@ -165,9 +165,9 @@ flowchart TD
     Effective --> Gap[Calcular gap]
     Perceived --> Gap
     Gap --> Category[Definir categoria]
-    Category --> Confidence[Estimar confianca]
-    Confidence --> Explanation[Gerar explicacao]
-    Explanation --> Recommendations[Gerar recomendacoes]
+    Category --> Confidence[Estimar confiança]
+    Confidence --> Explanation[Gerar explicação]
+    Explanation --> Recommendations[Gerar recomendações]
     Recommendations --> Output[AiAnalysis]
 ```
 
@@ -178,20 +178,20 @@ Cada resultado mostra:
 - Fatores que aumentaram valor efetivo.
 - Fatores que aumentaram ou reduziram valor percebido.
 - Justificativa em linguagem natural.
-- Sugestoes de acao.
+- Sugestões de ação.
 
-Exemplo: uma otimizacao de query critica recebe alto valor efetivo por performance, producao e usuarios afetados. Se nao houver sinais de demo, release, gestor, OKR ou comunicacao, o valor percebido fica menor e a categoria tende a ser "Alto valor invisivel".
+Exemplo: uma otimização de query crítica recebe alto valor efetivo por performance, produção e usuários afetados. Se não houver sinais de demo, release, gestor, OKR ou comunicação, o valor percebido fica menor e a categoria tende a ser "Alto valor invisível".
 
 ## Justificativa da IA Local
 
-A atividade prioriza IA embarcada/local. Por isso, o DevLens usa um classificador deterministico local, sem rede e sem custo operacional. A escolha tambem favorece privacidade: descricoes de trabalho, incidentes e contexto interno do time ficam no aparelho.
+A atividade prioriza IA embarcada/local. Por isso, o DevLens usa um classificador determinístico local, sem rede e sem custo operacional. A escolha também favorece privacidade: descrições de trabalho, incidentes e contexto interno do time ficam no aparelho.
 
-Substituicao futura:
+Substituição futura:
 
-1. Criar uma implementacao `OnnxActivityClassifier` ou `TfliteActivityClassifier`.
+1. Criar uma implementação `OnnxActivityClassifier` ou `TfliteActivityClassifier`.
 2. Manter a assinatura de `ActivityClassifier`.
 3. Retornar o mesmo `AiAnalysis`.
-4. Trocar a instancia no `DevLensContainer`.
+4. Trocar a instância no `DevLensContainer`.
 
 ## Como Executar o Projeto
 
@@ -200,38 +200,38 @@ Requisitos:
 - Android Studio.
 - JDK 17.
 - Android SDK com compile SDK 35.
-- Gradle compativel com Android Gradle Plugin 8.5.2.
-- Emulador Android ou dispositivo fisico com Android 8.0, API 26, ou superior.
+- Gradle compatível com Android Gradle Plugin 8.5.2.
+- Emulador Android ou dispositivo físico com Android 8.0, API 26, ou superior.
 
 Passos:
 
 1. Abra a pasta do projeto no Android Studio.
 2. Aguarde o sync do Gradle.
-3. Selecione a configuracao `app`.
+3. Selecione a configuração `app`.
 4. Execute o app em um emulador ou dispositivo Android.
 
 ## Como Verificar a Entrega Mobile
 
-A entrega principal e exclusivamente mobile. A pasta `app/` contem a implementacao Android em Kotlin + Jetpack Compose.
+A entrega principal é exclusivamente mobile. A pasta `app/` contém a implementação Android em Kotlin + Jetpack Compose.
 
 Para verificar o aplicativo manualmente:
 
-1. Abra o projeto no Android Studio pela raiz do repositorio.
-2. Confirme que o modulo `:app` sincronizou sem erros.
-3. Inicie um emulador Android ou conecte um dispositivo fisico.
-4. Execute a configuracao `app`.
+1. Abra o projeto no Android Studio pela raiz do repositório.
+2. Confirme que o módulo `:app` sincronizou sem erros.
+3. Inicie um emulador Android ou conecte um dispositivo físico.
+4. Execute a configuração `app`.
 5. No aplicativo, avance pelo onboarding e confira o dashboard inicial.
-6. Cadastre uma nova atividade tecnica informando titulo, descricao, tempo, tipo, tags e visibilidade percebida.
-7. Salve a atividade e verifique se a analise local retorna valor efetivo, valor percebido, categoria, confianca, explicacao, fatores e recomendacoes.
-8. Navegue pelas telas de dashboard, historico, detalhe, insights e relatorio gerencial para confirmar que os dados persistidos aparecem corretamente.
-9. Feche e abra o aplicativo novamente para conferir a persistencia local via Room e DataStore.
+6. Cadastre uma nova atividade técnica informando título, descrição, tempo, tipo, tags e visibilidade percebida.
+7. Salve a atividade e verifique se a análise local retorna valor efetivo, valor percebido, categoria, confiança, explicação, fatores e recomendações.
+8. Navegue pelas telas de dashboard, histórico, detalhe, insights e relatório gerencial para confirmar que os dados persistidos aparecem corretamente.
+9. Feche e abra o aplicativo novamente para conferir a persistência local via Room e DataStore.
 
-Para verificar os testes unitarios:
+Para verificar os testes unitários:
 
 - Pelo Android Studio, abra a aba Gradle e execute `:app:testDebugUnitTest`.
 - Se o wrapper Gradle tiver sido gerado pela IDE, rode `gradlew.bat testDebugUnitTest` no Windows ou `./gradlew testDebugUnitTest` no macOS/Linux.
 
-O fluxo esperado e que o app funcione sem chamadas externas de IA: a classificacao acontece localmente pelo `LocalAiEngine`, e os dados continuam no aparelho.
+O fluxo esperado é que o app funcione sem chamadas externas de IA: a classificação acontece localmente pelo `LocalAiEngine`, e os dados continuam no aparelho.
 
 ## Estrutura de Pastas
 
@@ -291,7 +291,7 @@ erDiagram
 
 ```mermaid
 sequenceDiagram
-    participant User as Usuario
+    participant User as Usuário
     participant UI as Compose
     participant VM as ViewModel
     participant UC as SaveActivityUseCase
@@ -307,28 +307,28 @@ sequenceDiagram
     VM-->>UI: Dashboard, detalhe e insights
 ```
 
-## Roteiro do Video de Apresentacao
+## Roteiro do Vídeo de Apresentação
 
-O video final esta renderizado em [`demo/final/demo.mp4`](demo/final/demo.mp4), e o roteiro completo esta em [`docs/video-script.md`](docs/video-script.md).
+O vídeo final está renderizado em [`demo/final/demo.mp4`](demo/final/demo.mp4), e o roteiro completo está em [`docs/video-script.md`](docs/video-script.md).
 
-## Limitacoes e Melhorias Futuras
+## Limitações e Melhorias Futuras
 
-- O modelo atual e heuristico e interpretavel, nao estatistico.
-- A classificacao pode ser calibrada com dados reais do time.
-- Uma versao futura pode usar ONNX/TFLite com embeddings locais.
-- O relatorio pode exportar PDF.
-- O app pode ter filtros por squad, sprint e periodo.
+- O modelo atual é heurístico e interpretável, não estatístico.
+- A classificação pode ser calibrada com dados reais do time.
+- Uma versão futura pode usar ONNX/TFLite com embeddings locais.
+- O relatório pode exportar PDF.
+- O app pode ter filtros por squad, sprint e período.
 
-## Relacao com o Barema da Atividade
+## Relação com o Barema da Atividade
 
-- Clareza da solucao: telas e README explicam problema, publico e proposta.
+- Clareza da solução: telas e README explicam problema, público e proposta.
 - IA pertinente: classificador compara valor efetivo e valor percebido.
-- IA local: nenhuma API externa e usada.
+- IA local: nenhuma API externa é usada.
 - Arquitetura realista: MVVM, Room, DataStore, WorkManager e Compose.
-- Fluxo de dados claro: diagramas Mermaid e separacao por camadas.
-- Explicabilidade: fatores, justificativa e confianca aparecem no detalhe.
-- Rastreabilidade: `AiAnalysis` persiste scores, fatores e recomendacoes.
-- Relatorio gerencial: tela propria com resumo copiavel.
+- Fluxo de dados claro: diagramas Mermaid e separação por camadas.
+- Explicabilidade: fatores, justificativa e confiança aparecem no detalhe.
+- Rastreabilidade: `AiAnalysis` persiste scores, fatores e recomendações.
+- Relatório gerencial: tela própria com resumo copiável.
 - Dados de exemplo: repository popula cinco atividades iniciais.
-- Testes unitarios: cobrem calculos, desalinhamento, explicacao, recomendacao e mapper.
-- Video: demo renderizada em `demo/final/demo.mp4` e roteiro em `docs/video-script.md`.
+- Testes unitários: cobrem cálculos, desalinhamento, explicação, recomendação e mapper.
+- Vídeo: demo renderizada em `demo/final/demo.mp4` e roteiro em `docs/video-script.md`.
