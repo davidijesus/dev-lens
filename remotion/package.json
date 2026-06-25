@@ -1,0 +1,18 @@
+{
+  "name": "devlens-demo-video",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "render": "remotion render src/index.ts DevLensDemo ../demo/final/demo.mp4 --codec=h264 --pixel-format=yuv420p --crf=18 --overwrite",
+    "preview": "remotion preview src/index.ts"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.379",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.379"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}
